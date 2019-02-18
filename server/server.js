@@ -6,10 +6,14 @@ const config = require('../config.js');
 
 const app = express();
 
+const api = require('../weatherapi/controller.js')(app,express);
+
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 
 app.use(express.static(path.join(__dirname, '../public')));
+
+app.use('/api', api)
 
 app.listen(config.PORT, function(err) {
   if(err) {
